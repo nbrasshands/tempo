@@ -1,16 +1,39 @@
 document.addEventListener("DOMContentLoaded", function() {
-    var inputs = document.querySelectorAll(".input-wrap input");
+    // Set a threshold for desktop screens, for example, 1024px
+    var desktopThreshold = 1024;
 
-    inputs.forEach(function(input) {
-        input.addEventListener("focus", function() {
-            this.parentNode.classList.add("focused");
+    // Function to add or remove focus listeners
+    function updateFocusListeners(add) {
+        var inputs = document.querySelectorAll(".input-wrap input");
+        inputs.forEach(function(input) {
+            if (add) {
+                input.addEventListener("focus", onFocus);
+                input.addEventListener("blur", onBlur);
+            } else {
+                input.removeEventListener("focus", onFocus);
+                input.removeEventListener("blur", onBlur);
+            }
         });
+    }
 
-        input.addEventListener("blur", function() {
-            this.parentNode.classList.remove("focused");
-        });
+    // Event handlers
+    function onFocus() {
+        this.parentNode.classList.add("focused");
+    }
+
+    function onBlur() {
+        this.parentNode.classList.remove("focused");
+    }
+
+    // Initial setup based on current screen width
+    updateFocusListeners(window.innerWidth >= desktopThreshold);
+
+    // Update listeners on window resize
+    window.addEventListener("resize", function() {
+        updateFocusListeners(window.innerWidth >= desktopThreshold);
     });
 });
+
 
 document.addEventListener("DOMContentLoaded", function() {
     var navigation = document.getElementById("navigation");
