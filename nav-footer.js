@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     // Set a threshold for desktop screens, for example, 1024px
-    var desktopThreshold = 1024;
+    var desktopThreshold = 768;
 
     // Function to add or remove focus listeners
     function updateFocusListeners(add) {
